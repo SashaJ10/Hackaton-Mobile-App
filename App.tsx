@@ -5,6 +5,7 @@
  * @format
  */
 
+import {Button} from '@rneui/themed';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -42,6 +43,28 @@ function Section({children, title}: SectionProps): JSX.Element {
         ]}>
         {title}
       </Text>
+      <Button
+        title="HOME"
+        icon={{
+          name: 'home',
+          type: 'font-awesome',
+          size: 15,
+          color: 'white',
+        }}
+        iconContainerStyle={{marginRight: 10}}
+        titleStyle={{fontWeight: '700'}}
+        buttonStyle={{
+          backgroundColor: 'rgba(90, 154, 230, 1)',
+          borderColor: 'transparent',
+          borderWidth: 0,
+          borderRadius: 30,
+        }}
+        containerStyle={{
+          width: 200,
+          marginHorizontal: 50,
+          marginVertical: 10,
+        }}
+      />
       <Text
         style={[
           styles.sectionDescription,
