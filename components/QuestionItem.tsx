@@ -6,39 +6,45 @@ import {CanopyQuestionResponse} from '../types';
 interface QuestionItemProps {
   item: CanopyQuestionResponse;
   index: number;
+  handleDialog: () => void;
 }
 
 const darkGrey = '#ccced9';
 
-const leftComponent = (action: any) => (
-  <Button
-    containerStyle={styles.leftButtonContainer}
-    type="clear"
-    title={'Archive'}
-    titleStyle={styles.titleLeftButton}
-    buttonStyle={styles.button}
-    icon={{
-      name: 'archive-outline',
-      type: 'material-community',
-    }}
-    onPress={action}
-  />
-);
-
-const rightComponent = (action: any) => (
-  <Button
-    containerStyle={styles.rightButtonContainer}
-    type="clear"
-    title={'Delete'}
-    titleStyle={styles.titleRightButton}
-    buttonStyle={styles.button}
-    icon={{name: 'delete-outline', color: 'white'}}
-    onPress={action}
-  />
-);
-
-export const QuestionItem: React.FC<QuestionItemProps> = ({item, index}) => {
+export const QuestionItem: React.FC<QuestionItemProps> = ({
+  item,
+  index,
+  handleDialog,
+}) => {
   const {text, type} = item;
+
+  const leftComponent = () => (
+    <Button
+      containerStyle={styles.leftButtonContainer}
+      type="clear"
+      title={'Archive'}
+      titleStyle={styles.titleLeftButton}
+      buttonStyle={styles.button}
+      icon={{
+        name: 'archive-outline',
+        type: 'material-community',
+      }}
+      onPress={handleDialog}
+    />
+  );
+
+  const rightComponent = () => (
+    <Button
+      containerStyle={styles.rightButtonContainer}
+      type="clear"
+      title={'Delete'}
+      titleStyle={styles.titleRightButton}
+      buttonStyle={styles.button}
+      icon={{name: 'delete-outline', color: 'white'}}
+      onPress={handleDialog}
+    />
+  );
+
   return (
     <View>
       <ListItem.Swipeable
@@ -81,7 +87,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'red',
   },
-  button: {flexDirection: 'column'},
+  button: {
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderRadius: 0,
+  },
   titleRightButton: {color: 'white', fontSize: 14},
   titleLeftButton: {color: 'black', fontSize: 14},
 });

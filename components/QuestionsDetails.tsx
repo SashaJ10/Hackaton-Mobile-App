@@ -1,5 +1,5 @@
-import {Icon} from '@rneui/themed';
-import React from 'react';
+import {Dialog, Icon} from '@rneui/themed';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {QuestionItem} from './QuestionItem';
 
@@ -28,6 +28,10 @@ const grey = '#f2f2f5';
 const officialBlue = '#6157fc';
 
 export const QuestionsDetails: React.FC = () => {
+  const [visible1, setVisible1] = useState<boolean>(false);
+
+  const handleDialog = () => setVisible1(prevState => !prevState);
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.wrapperTitle}>
@@ -45,8 +49,17 @@ export const QuestionsDetails: React.FC = () => {
         </View>
       </View>
       {canopyQuestionsResponse.map((question, index) => (
-        <QuestionItem item={question} key={question.id} index={index} />
+        <QuestionItem
+          item={question}
+          key={question.id}
+          index={index}
+          handleDialog={handleDialog}
+        />
       ))}
+      <Dialog isVisible={visible1} onBackdropPress={handleDialog}>
+        <Dialog.Title title="Remove/Archive" />
+        <Text>It will be available soon.</Text>
+      </Dialog>
     </View>
   );
 };
