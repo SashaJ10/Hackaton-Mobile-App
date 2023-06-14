@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -5,55 +6,52 @@
  * @format
  */
 
+import {Header} from '@rneui/themed';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {QuestionsDetails} from './components/QuestionsDetails';
+import {CanopyItem} from './components/CanopyItem';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const canopyDetailsExpertResponse = {
+  documents: [],
+  id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
+  isCanopyAgreementAccepted: true,
+  isSubmitted: true,
+  links: [],
+  overview: 'test purposes',
+  projectId: '9f3ec052-9b8b-416b-b48e-d3c9408e9ae8',
+  status: 'Active',
+  title: 'Rock questons',
+};
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const canopies = [
+  {
+    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
+    joinDate: '2023-06-06T09:17:53.466127Z',
+    status: 'InReview',
+    title: 'Rock questons',
+  },
+  {
+    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b4',
+    joinDate: '2023-06-06T09:17:53.466127Z',
+    status: 'InReview',
+    title: 'Rock Canopy',
+  },
+  {
+    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b3',
+    joinDate: '2023-06-06T09:17:53.466127Z',
+    status: 'Incomplete',
+    title: 'Test Canopy',
+  },
+];
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -71,47 +69,35 @@ function App(): JSX.Element {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
+        <Header
+          leftComponent={{
+            icon: 'menu',
+            color: '#fff',
+          }}
+          centerComponent={{
+            text: 'Canopy Details',
+            style: styles.heading,
+          }}
+        />
+        {/* {canopies.map(canopy => (
+          <CanopyItem item={canopy} key={canopy.id} />
+        ))} */}
+        <QuestionsDetails />
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  heading: {
+    color: 'white',
+    fontSize: 22,
+    fontWeight: 'bold',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
+  simpleText: {
+    fontSize: 14,
     fontWeight: '700',
+    color: 'grey',
   },
 });
 
