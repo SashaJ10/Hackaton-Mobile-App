@@ -1,11 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import {Header} from '@rneui/themed';
 import React from 'react';
 import {
@@ -13,12 +6,26 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
+  Text,
+  View,
   useColorScheme,
 } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {QuestionsDetails} from './components/QuestionsDetails';
 import {CanopyItem} from './components/CanopyItem';
+
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
 
 const canopyDetailsExpertResponse = {
   documents: [],
@@ -61,30 +68,35 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header
-          leftComponent={{
-            icon: 'menu',
-            color: '#fff',
-          }}
-          centerComponent={{
-            text: 'Canopy Details',
-            style: styles.heading,
-          }}
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+      {/* <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
         />
-        {/* {canopies.map(canopy => (
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={backgroundStyle}>
+          <Header
+            leftComponent={{
+              icon: 'menu',
+              color: '#fff',
+            }}
+            centerComponent={{
+              text: 'Canopy Details',
+              style: styles.heading,
+            }}
+          /> */}
+      {/* {canopies.map(canopy => (
           <CanopyItem item={canopy} key={canopy.id} />
         ))} */}
-        <QuestionsDetails />
-      </ScrollView>
-    </SafeAreaView>
+      {/* <QuestionsDetails />
+        </ScrollView>
+      </SafeAreaView> */}
+    </NavigationContainer>
   );
 }
 
