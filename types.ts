@@ -14,3 +14,15 @@ export interface CanopyQuestionResponse {
   text: string;
   type: string;
 }
+
+export interface AnswerResponse {
+  created: string;
+  details: string;
+  downloadUrl: string;
+  expertId: string;
+  id: string;
+  questionId: string;
+  questionText: string;
+  status: string;
+  type: string;
+}
