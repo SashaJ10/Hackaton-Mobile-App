@@ -19,6 +19,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {QuestionsDetails} from './components/QuestionsDetails';
 import {CanopyItem} from './components/CanopyItem';
+import {CustomVideo} from './components/CustomVideo';
 
 const canopyDetailsExpertResponse = {
   documents: [],
@@ -82,8 +83,9 @@ function App(): JSX.Element {
         {/* {canopies.map(canopy => (
           <CanopyItem item={canopy} key={canopy.id} />
         ))} */}
-        <QuestionsDetails />
+        {/* <QuestionsDetails /> */}
       </ScrollView>
+      <CustomVideo />
     </SafeAreaView>
   );
 }
