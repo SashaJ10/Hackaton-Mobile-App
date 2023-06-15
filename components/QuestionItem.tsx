@@ -48,6 +48,8 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
     />
   );
 
+  const isVideo = type === 'Video';
+
   return (
     <ListItem.Swipeable
       leftWidth={80}
@@ -57,14 +59,14 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
     >
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigation.navigate('Answer')}
+        onPress={() => navigation.navigate('Answer', { type })}
       >
         <Badge value={`${index + 1}`} status="success" />
         <ListItem.Content>
           <ListItem.Subtitle>{text}</ListItem.Subtitle>
           <View style={styles.typeContainer}>
             <Icon
-              name="video"
+              name={isVideo ? 'video' : 'sort-variant'}
               type="material-community"
               color={darkGrey}
               size={18}
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    marginBottom: 10,
   },
   typeContainer: { flexDirection: 'row', marginTop: 5 },
   typeText: { color: darkGrey, fontWeight: '600' },

@@ -47,7 +47,12 @@ export const CanopyItem: React.FC<QuestionItemProps> = ({
 
 const styles = (props?: any) =>
   StyleSheet.create({
-    containerStyle: { borderBottomColor: 'grey', borderBottomWidth: 1 },
+    containerStyle: {
+      borderBottomColor: 'grey',
+      borderBottomWidth: 1,
+      marginTop: 10,
+      marginBottom: 10,
+    },
     subtitle: { fontSize: 12, color: props?.isIncomplete ? 'red' : 'green' },
     icon: { color: 'orange' },
   });

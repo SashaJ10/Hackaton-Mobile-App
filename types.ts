@@ -18,11 +18,13 @@ export interface CanopyQuestionResponse {
 export interface AnswerResponse {
   created: string;
   details: string;
-  downloadUrl: string;
+  downloadUrl?: string;
   expertId: string;
   id: string;
   questionId: string;
   questionText: string;
   status: string;
   type: string;
+  optionChoices?: any;
+  answersRange?: any;
 }

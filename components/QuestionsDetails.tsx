@@ -25,7 +25,7 @@ const canopyQuestionsResponse: CanopyQuestionResponse[] = [
     isAnswered: true,
     order: 0,
     text: 'Canopy agreement',
-    type: 'Video',
+    type: 'MultiChoice',
   },
 ];
 

@@ -24,15 +24,6 @@ export const CustomVideo: React.FC<Props> = ({ url }) => {
 
 // Later on in your styles..
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  toolbar: {
-    marginTop: 30,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 5,
-  },
   mediaPlayer: {
     position: 'absolute',
     top: 0,
@@ -41,5 +32,6 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: 'black',
     justifyContent: 'center',
+    marginTop: 10,
   },
 });
