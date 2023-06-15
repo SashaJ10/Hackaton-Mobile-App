@@ -49,12 +49,15 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
   );
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Answer')}>
-      <ListItem.Swipeable
-        leftWidth={80}
-        rightWidth={90}
-        leftContent={leftComponent}
-        rightContent={rightComponent}
+    <ListItem.Swipeable
+      leftWidth={80}
+      rightWidth={90}
+      leftContent={leftComponent}
+      rightContent={rightComponent}
+    >
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => navigation.navigate('Answer')}
       >
         <Badge value={`${index + 1}`} status="success" />
         <ListItem.Content>
@@ -71,12 +74,18 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
           </View>
         </ListItem.Content>
         <ListItem.Chevron iconStyle={styles.listItemIcon} />
-      </ListItem.Swipeable>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </ListItem.Swipeable>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   typeContainer: { flexDirection: 'row', marginTop: 5 },
   typeText: { color: darkGrey, fontWeight: '600' },
   typeIcon: { marginRight: 5 },
