@@ -1,8 +1,8 @@
-import {Badge, Button, Icon, ListItem, Text} from '@rneui/themed';
+import { Badge, Button, Icon, ListItem, Text } from '@rneui/themed';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {CanopyQuestionResponse} from '../types';
-import Layout from '../Layout';
+import { StyleSheet, View } from 'react-native';
+
+import { CanopyQuestionResponse } from '../types';
 
 interface QuestionItemProps {
   item: CanopyQuestionResponse;
@@ -17,7 +17,7 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
   index,
   handleDialog,
 }) => {
-  const {text, type} = item;
+  const { text, type } = item;
 
   const leftComponent = () => (
     <Button
@@ -41,45 +41,42 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
       title={'Delete'}
       titleStyle={styles.titleRightButton}
       buttonStyle={styles.button}
-      icon={{name: 'delete-outline', color: 'white'}}
+      icon={{ name: 'delete-outline', color: 'white' }}
       onPress={handleDialog}
     />
   );
 
   return (
-    <Layout title='Question Details'>
-    <View>
-      <ListItem.Swipeable
-        leftWidth={80}
-        rightWidth={90}
-        leftContent={leftComponent}
-        rightContent={rightComponent}>
-        <Badge value={`${index + 1}`} status="success" />
-        <ListItem.Content>
-          <ListItem.Subtitle>{text}</ListItem.Subtitle>
-          <View style={styles.typeContainer}>
-            <Icon
-              name="video"
-              type="material-community"
-              color={darkGrey}
-              size={18}
-              style={styles.typeIcon}
-            />
-            <Text style={styles.typeText}>{type}</Text>
-          </View>
-        </ListItem.Content>
-        <ListItem.Chevron iconStyle={styles.listItemIcon} />
-      </ListItem.Swipeable>
-    </View>
-    </Layout>
+    <ListItem.Swipeable
+      leftWidth={80}
+      rightWidth={90}
+      leftContent={leftComponent}
+      rightContent={rightComponent}
+    >
+      <Badge value={`${index + 1}`} status="success" />
+      <ListItem.Content>
+        <ListItem.Subtitle>{text}</ListItem.Subtitle>
+        <View style={styles.typeContainer}>
+          <Icon
+            name="video"
+            type="material-community"
+            color={darkGrey}
+            size={18}
+            style={styles.typeIcon}
+          />
+          <Text style={styles.typeText}>{type}</Text>
+        </View>
+      </ListItem.Content>
+      <ListItem.Chevron iconStyle={styles.listItemIcon} />
+    </ListItem.Swipeable>
   );
 };
 
 const styles = StyleSheet.create({
-  typeContainer: {flexDirection: 'row', marginTop: 5},
-  typeText: {color: darkGrey, fontWeight: '600'},
-  typeIcon: {marginRight: 5},
-  listItemIcon: {color: 'green'},
+  typeContainer: { flexDirection: 'row', marginTop: 5 },
+  typeText: { color: darkGrey, fontWeight: '600' },
+  typeIcon: { marginRight: 5 },
+  listItemIcon: { color: 'green' },
   leftButtonContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -96,6 +93,6 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     borderRadius: 0,
   },
-  titleRightButton: {color: 'white', fontSize: 14},
-  titleLeftButton: {color: 'black', fontSize: 14},
+  titleRightButton: { color: 'white', fontSize: 14 },
+  titleLeftButton: { color: 'black', fontSize: 14 },
 });
