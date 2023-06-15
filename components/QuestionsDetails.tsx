@@ -2,6 +2,7 @@ import {Dialog, Icon} from '@rneui/themed';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {QuestionItem} from './QuestionItem';
+import Layout from '../Layout';
 
 const canopyQuestionsResponse = [
   {
@@ -33,6 +34,7 @@ export const QuestionsDetails: React.FC = () => {
   const handleDialog = () => setVisible1(prevState => !prevState);
 
   return (
+    <Layout title='Question'>
     <View style={styles.wrapper}>
       <View style={styles.wrapperTitle}>
         <Text style={styles.simpleText}>Questions</Text>
@@ -60,7 +62,7 @@ export const QuestionsDetails: React.FC = () => {
         <Dialog.Title title="Remove/Archive" />
         <Text>It will be available soon.</Text>
       </Dialog>
-    </View>
+    </View></Layout>
   );
 };
 
