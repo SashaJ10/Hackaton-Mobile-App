@@ -1,0 +1,195 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "project": ["tsconfig.base.json"]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["react-app"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["airbnb/hooks"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:react/recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:react-hooks/recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["eslint:recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/eslint-recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["prettier"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["prettier/react"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["prettier/@typescript-eslint"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:prettier/recommended"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:import/typescript"]
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["./eslintrc-custom-overrides.json"]
+    },
+    {
+      "files": ["*.test.ts", "*.test.tsx", "*.test.js", "*.test.jsx"],
+      "rules": {
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": ["off"]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "type:ui:base",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui:base",
+                  "type:models",
+                  "type:models:base",
+                  "type:util"
+                ],
+                "bannedExternalImports": ["*axios*"]
+              },
+              {
+                "sourceTag": "type:api",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:util",
+                  "type:models",
+                  "type:models:base"
+                ],
+                "bannedExternalImports": ["*react*"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui:base",
+                  "type:models",
+                  "type:models:base",
+                  "type:util",
+                  "type:ui"
+                ]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": [
+                  "type:store",
+                  "type:store:base",
+                  "type:api",
+                  "type:ui",
+                  "type:ui:base",
+                  "type:models",
+                  "type:models:base",
+                  "type:util",
+                  "type:feature:base",
+                  "type:routes"
+                ]
+              },
+              {
+                "sourceTag": "type:feature:base",
+                "onlyDependOnLibsWithTags": [
+                  "type:store",
+                  "type:store:base",
+                  "type:api",
+                  "type:ui",
+                  "type:ui:base",
+                  "type:models",
+                  "type:models:base",
+                  "type:feature:base",
+                  "type:util",
+                  "type:routes"
+                ]
+              },
+              {
+                "sourceTag": "type:store",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:models",
+                  "type:models:base",
+                  "type:util",
+                  "type:store:base"
+                ],
+                "bannedExternalImports": ["*react*"]
+              },
+              {
+                "sourceTag": "type:store:base",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:models",
+                  "type:models:base",
+                  "type:util"
+                ],
+                "bannedExternalImports": ["*react*"]
+              },
+              {
+                "sourceTag": "type:application",
+                "onlyDependOnLibsWithTags": [
+                  "type:api",
+                  "type:feature",
+                  "type:store",
+                  "type:store:base",
+                  "type:ui",
+                  "type:ui:base",
+                  "type:models",
+                  "type:models:base",
+                  "type:util",
+                  "type:feature:base",
+                  "type:routes"
+                ]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": []
+              },
+              {
+                "sourceTag": "type:routes",
+                "onlyDependOnLibsWithTags": ["type:models", "type:models:base"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

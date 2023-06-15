@@ -2,6 +2,7 @@ import {Badge, Button, Icon, ListItem, Text} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CanopyQuestionResponse} from '../types';
+import Layout from '../Layout';
 
 interface QuestionItemProps {
   item: CanopyQuestionResponse;
@@ -46,6 +47,7 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
   );
 
   return (
+    <Layout title='Question Details'>
     <View>
       <ListItem.Swipeable
         leftWidth={80}
@@ -69,6 +71,7 @@ export const QuestionItem: React.FC<QuestionItemProps> = ({
         <ListItem.Chevron iconStyle={styles.listItemIcon} />
       </ListItem.Swipeable>
     </View>
+    </Layout>
   );
 };
 

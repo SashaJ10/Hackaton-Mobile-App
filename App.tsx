@@ -6,7 +6,7 @@
  * @format
  */
 
-import {Header} from '@rneui/themed';
+import { Header } from '@rneui/themed';
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,44 +14,22 @@ import {
   StatusBar,
   StyleSheet,
   useColorScheme,
+  Text,
 } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {QuestionsDetails} from './components/QuestionsDetails';
-import {CanopyItem} from './components/CanopyItem';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { QuestionsDetails } from './components/QuestionsDetails';
+import { CanopyDetails } from './components/CanopyDetails';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { QuestionItem } from './components/QuestionItem';
 
-const canopyDetailsExpertResponse = {
-  documents: [],
-  id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
-  isCanopyAgreementAccepted: true,
-  isSubmitted: true,
-  links: [],
-  overview: 'test purposes',
-  projectId: '9f3ec052-9b8b-416b-b48e-d3c9408e9ae8',
-  status: 'Active',
-  title: 'Rock questons',
+export type RootStackParamList = {
+  CanopyDetails: undefined;
+  QuestionDetails: undefined;
 };
 
-const canopies = [
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'InReview',
-    title: 'Rock questons',
-  },
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b4',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'InReview',
-    title: 'Rock Canopy',
-  },
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b3',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'Incomplete',
-    title: 'Test Canopy',
-  },
-];
+const RootStack = createStackNavigator<RootStackParamList>();
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,36 +39,22 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header
-          leftComponent={{
-            icon: 'menu',
-            color: '#fff',
-          }}
-          centerComponent={{
-            text: 'Canopy Details',
-            style: styles.heading,
-          }}
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="CanopyDetails">
+        <RootStack.Screen
+          name="CanopyDetails"
+          component={CanopyDetails}
+          options={{ title: 'Canopies' }}
         />
-        {/* {canopies.map(canopy => (
-          <CanopyItem item={canopy} key={canopy.id} />
-        ))} */}
-        <QuestionsDetails />
-      </ScrollView>
-    </SafeAreaView>
+        <RootStack.Screen name="QuestionDetails" component={QuestionsDetails} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   heading: {
-    color: 'white',
+    color: 'red',
     fontSize: 22,
     fontWeight: 'bold',
   },
