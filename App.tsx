@@ -5,6 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { CanopyDetails } from './components/CanopyDetails';
 import { QuestionsDetails } from './components/QuestionsDetails';
 import { Answer } from './components/Answer';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreAllLogs();
+export const expertId = 'd60e44ec-59d4-41df-b48f-545ac948b0c4';
 
 export type RootStackParamList = {
   CanopyDetails: undefined;
@@ -13,6 +17,11 @@ export type RootStackParamList = {
 };
 
 const RootStack = createStackNavigator<RootStackParamList>();
+
+interface QuestionDetailsRouteParams {
+  title: string;
+  canopyId: string;
+}
 
 const App = (): JSX.Element => (
   <NavigationContainer>
@@ -25,7 +34,16 @@ const App = (): JSX.Element => (
       <RootStack.Screen
         name="QuestionDetails"
         component={QuestionsDetails}
-        options={{ title: 'Question Details' }}
+        options={({ route }) => {
+          const routeParams: QuestionDetailsRouteParams = route.params || {
+            title: '',
+            canopyId: '',
+          };
+          return {
+            title: routeParams.title || 'Question Details',
+            canopyId: routeParams.canopyId,
+          };
+        }}
       />
       <RootStack.Screen
         name="Answer"

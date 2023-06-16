@@ -1,45 +1,60 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Layout from '../Layout';
 import { CanopyItem } from './CanopyItem';
-import { RootStackParamList } from '../App';
+import { RootStackParamList, expertId } from '../App';
 import { Canopy } from '../types';
-
-const canopies: Canopy[] = [
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'InReview',
-    title: 'Rock questons',
-  },
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b4',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'InReview',
-    title: 'Rock Canopy',
-  },
-  {
-    id: 'd95e17d4-aac4-46eb-b50a-36785c6a94b3',
-    joinDate: '2023-06-06T09:17:53.466127Z',
-    status: 'Incomplete',
-    title: 'Test Canopy',
-  },
-];
+import { Dialog } from '@rneui/themed';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CanopyDetails'>;
 
 export const CanopyDetails: React.FC<Props> = ({ navigation }) => {
+  const [canopies, setCanopies] = useState<Canopy[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const fetchData = async () => {
+      const resp = await fetch(
+        `https://dev.arbolus.com/api/v1/canopies/expert/list/public?expertId=${expertId}`
+      );
+      const data = await resp.json();
+      setCanopies(data.items);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Layout>
-      <FlatList
-        data={canopies}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CanopyItem item={item} navigation={navigation} />
-        )}
-      />
+      <Dialog
+        isVisible={loading}
+        onBackdropPress={() => setLoading(false)}
+        overlayStyle={styles.dialog}
+      >
+        <Dialog.Loading />
+      </Dialog>
+      {!loading && (
+        <FlatList
+          data={canopies}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <CanopyItem item={item} navigation={navigation} />
+          )}
+          style={{ marginTop: 20 }}
+        />
+      )}
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  dialog: {
+    backgroundColor: 'transparent',
+    elevation: 0,
+  },
+});

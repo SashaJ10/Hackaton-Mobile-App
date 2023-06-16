@@ -1,43 +1,48 @@
 import { Dialog, Icon } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { QuestionItem } from './QuestionItem';
 import Layout from '../Layout';
 import { CanopyQuestionResponse } from '../types';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
-
-const canopyQuestionsResponse: CanopyQuestionResponse[] = [
-  {
-    canopyId: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
-    details: '',
-    id: '61d563fc-dd99-4a43-b049-ca5017925f57',
-    isAnswered: true,
-    order: 0,
-    text: 'What songs will be played at the next European music festival?',
-    type: 'Video',
-  },
-  {
-    canopyId: 'd95e17d4-aac4-46eb-b50a-36785c6a94b5',
-    details: '',
-    id: '61d563fc-dd99-4a43-b049-ca5017925f58',
-    isAnswered: true,
-    order: 0,
-    text: 'Canopy agreement',
-    type: 'MultiChoice',
-  },
-];
+import { RootStackParamList, expertId } from '../App';
 
 const grey = '#f2f2f5';
 const officialBlue = '#6157fc';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'QuestionDetails'>;
+interface RouteParams {
+  canopyId: string;
+}
 
-export const QuestionsDetails: React.FC<Props> = ({ navigation }) => {
+export const QuestionsDetails: React.FC<Props> = ({ navigation, route }) => {
+  const routeParams: RouteParams = route.params || {
+    canopyId: '',
+  };
+
   const [visible1, setVisible1] = useState<boolean>(false);
+  const [questions, setQuestions] = useState<CanopyQuestionResponse[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    const fetchData = async () => {
+      const resp = await fetch(
+        `https://dev.arbolus.com/api/v1/canopies/${routeParams.canopyId}/questions/${expertId}/public`
+      );
+      const data = await resp.json();
+      setQuestions(data.items);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [routeParams.canopyId]);
 
   const handleDialog = () => setVisible1((prevState) => !prevState);
+  const percentageCompleted =
+    (questions.filter((res) => res.isAnswered).length / questions.length) * 100;
 
   return (
     <Layout>
@@ -52,25 +57,37 @@ export const QuestionsDetails: React.FC<Props> = ({ navigation }) => {
               size={18}
               style={styles.leftIcon}
             />
-            <Text style={styles.simpleText}>5 mins |</Text>
-            <Text style={{ color: officialBlue }}> 100% Completed</Text>
+            <Text style={styles.simpleText}>5 mins | </Text>
+            <Text style={{ color: officialBlue }}>
+              {Math.ceil(percentageCompleted)}% Completed
+            </Text>
           </View>
         </View>
-        <FlatList
-          data={canopyQuestionsResponse}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item, index }) => (
-            <QuestionItem
-              item={item}
-              key={item.id}
-              index={index}
-              handleDialog={handleDialog}
-              navigation={navigation}
-            />
-          )}
-        />
+        <Dialog
+          overlayStyle={styles.dialog}
+          isVisible={loading}
+          onBackdropPress={() => setLoading(false)}
+        >
+          <Dialog.Loading />
+        </Dialog>
+        {!loading && (
+          <FlatList
+            data={questions}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <QuestionItem
+                item={item}
+                key={item.id}
+                index={index}
+                handleDialog={handleDialog}
+                isAnswered={item.isAnswered}
+                navigation={navigation}
+              />
+            )}
+          />
+        )}
         <Dialog isVisible={visible1} onBackdropPress={handleDialog}>
-          <Dialog.Title title="Remove/Archive" />
+          <Dialog.Title title="Record/Answer" />
           <Text>It will be available soon.</Text>
         </Dialog>
       </View>
@@ -79,8 +96,12 @@ export const QuestionsDetails: React.FC<Props> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  dialog: {
+    backgroundColor: 'transparent',
+    elevation: 0,
+  },
   wrapper: {
-    backgroundColor: 'white',
+    backgroundColor: grey,
     flex: 1,
   },
   wrapperTitle: {
