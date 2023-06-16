@@ -48,7 +48,7 @@ export const QuestionsDetails: React.FC<Props> = ({ navigation, route }) => {
     <Layout>
       <View style={styles.wrapper}>
         <View style={styles.wrapperTitle}>
-          <Text style={styles.simpleText}>Questions</Text>
+          <Text style={styles.simpleText}>{questions.length} Questions</Text>
           <View style={styles.wrapperLeftTitle}>
             <Icon
               name="clock-time-five-outline"
